@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.venv/
+venv/
+env/
+
+# Flask session/cache
+flask_session/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Docker overrides
+docker-compose.override.yml

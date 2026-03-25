@@ -1,0 +1,12 @@
+{
+  "name": "adamsfaktura",
+  "private": true,
+  "scripts": {
+    "tailwind:build": "tailwindcss -i ./static/tailwind.input.css -o ./static/tailwind.output.css",
+    "tailwind:watch": "tailwindcss -i ./static/tailwind.input.css -o ./static/tailwind.output.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "tailwindcss": "^4.1.18"
+  }
+}
