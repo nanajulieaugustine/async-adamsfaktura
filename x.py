@@ -69,8 +69,6 @@ REGEX_USER_PASSWORD = f"^.{{{USER_PASSWORD_MIN},{USER_PASSWORD_MAX}}}$"
 
 def validate_user_password():
         repeat_user_password = request.form.get("repeat_user_password", "")
-        if not re.match(REGEX_USER_PASSWORD, repeat_user_password):
-            raise Exception("company_exception repeat_user_password", 400)
         user_password = request.form.get("user_password", "")
 
         if not re.match(REGEX_USER_PASSWORD, user_password):
