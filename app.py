@@ -17,29 +17,29 @@ app_env = os.getenv("APP_ENV", "development").lower()
 is_production = app_env == "production"
 
 default_cors_origins = "https://adamsfakturaapp.vercel.app"
-# cors_origins = [
-#     origin.strip()
-#     for origin in os.getenv("CORS_ORIGINS", default_cors_origins).split(",")
-#     if origin.strip()
-# ]
+cors_origins = [
+    origin.strip()
+    for origin in os.getenv("CORS_ORIGINS", default_cors_origins).split(",")
+    if origin.strip()
+]
 
 CORS(
     app,
-    # origins=cors_origins,
-    # supports_credentials=True
+    origins=cors_origins,
+    supports_credentials=True
 )
  
 app.config['SESSION_TYPE'] = 'filesystem'
-# app.config["SESSION_USE_SIGNER"] = True
-# app.config["SESSION_COOKIE_HTTPONLY"] = True
-# app.config["SESSION_COOKIE_SAMESITE"] = os.getenv(
-#     "SESSION_COOKIE_SAMESITE",
-#     "None" if is_production else "Lax"
-# )
-# app.config["SESSION_COOKIE_SECURE"] = os.getenv(
-#     "SESSION_COOKIE_SECURE",
-#     "true" if is_production else "false"
-# ).lower() == "true"
+app.config["SESSION_USE_SIGNER"] = True
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = os.getenv(
+    "SESSION_COOKIE_SAMESITE",
+    "None" if is_production else "Lax"
+)
+app.config["SESSION_COOKIE_SECURE"] = os.getenv(
+    "SESSION_COOKIE_SECURE",
+    "true" if is_production else "false"
+).lower() == "true"
 Session(app)
 
 
@@ -178,7 +178,7 @@ def showusers():
         users = cursor.fetchall()
         return jsonify(users)
     except Exception as ex:
-        
+
         ic(ex)
         return "system under maintenance...", 500
     
