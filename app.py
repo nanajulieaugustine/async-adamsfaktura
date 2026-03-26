@@ -17,7 +17,7 @@ Session(app)
 #INIT
 @app.get("/")
 def index():
-    return "ok"
+    return render_template("index.html")
 
 #SHOW ALL USERS
 @app.get("/users")
@@ -40,7 +40,7 @@ def get_users():
 ################################        CREATE USER             ############################
 
 #commit to database with validation
-@app.post("/createuser")
+@app.route("/createuser", methods=["POST"])
 def api_create_user():
     try:
         user_pk = uuid.uuid4().hex
@@ -58,7 +58,7 @@ def api_create_user():
         q = "INSERT INTO users VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         cursor.execute(q, (user_pk, user_first_name, user_last_name, user_email, user_address, user_phone, user_website, user_password, user_role, user_created_at))
         db.commit()
-        return "ok"
+        return "User created successfully"
 
     except Exception as ex:
         print("ERROR:", ex)
