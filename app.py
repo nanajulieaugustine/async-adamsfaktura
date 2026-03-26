@@ -103,7 +103,7 @@ def api_create_user():
         if "company_exception user_address" in str(ex):
             return "Invalid address", 400
 
-        # return "system under maintainence...", 500, {"Content-Type": "text/html"}
+        return "system under maintainence...", 500, {"Content-Type": "text/html"}
     
     finally:
         if "cursor" in locals(): cursor.close()
@@ -136,7 +136,7 @@ def user_login():
         if "company_exception wrong e-mail or password" in str(ex) or "company_exception user_email" in str(ex) or "company_exception user_password" in str(ex):
             return "Wrong e-mail or password", 400
         
-        # return "Something went wrong logging in, please try again", 500
+        return "Something went wrong logging in, please try again", 500
     
     finally:
         if "cursor" in locals(): cursor.close()
@@ -167,3 +167,21 @@ def logout():
     except Exception as ex:
         ic(ex)
         return "system under maintainence...", 500
+
+
+@app.get("/api-show-users")
+def showusers():
+    try:
+        db, cursor = x.db()
+        q = "SELECT * FROM users"
+        cursor.execute(q)
+        users = cursor.fetchall()
+        return jsonify(users)
+    except Exception as ex:
+        
+        ic(ex)
+        return "system under maintenance...", 500
+    
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()
