@@ -17,7 +17,7 @@ Session(app)
 #INIT
 @app.get("/")
 def index():
-    return render_template("index.html")
+    return "ok"
 
 #SHOW ALL USERS
 @app.get("/users")
@@ -40,7 +40,7 @@ def get_users():
 ################################        CREATE USER             ############################
 
 #commit to database with validation
-@app.post("/api-create-user")
+@app.post("/createuser")
 def api_create_user():
     try:
         user_pk = uuid.uuid4().hex
