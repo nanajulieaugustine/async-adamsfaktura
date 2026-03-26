@@ -111,7 +111,7 @@ def validate_user_address():
 ############################# validate user website
 USER_WEBSITE_MIN = 2
 USER_WEBSITE_MAX = 150
-REGEX_USER_WEBSITE = rf"^(?=.{{{USER_WEBSITE_MIN},{USER_WEBSITE_MAX}}}$)(https?://)?(www\.)?"
+REGEX_USER_WEBSITE = rf"^(?=.{{{USER_WEBSITE_MIN},{USER_WEBSITE_MAX}}}$)(https?://)?(www\.)?[\w\-]+\.[a-z]{{2,}}.*$"
 
 def validate_user_website():
         user_website = request.form.get("user_website", "").strip()
