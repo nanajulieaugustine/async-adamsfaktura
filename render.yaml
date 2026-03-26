@@ -2,6 +2,7 @@ services:
   - type: web
     name: adamsfaktura-api
     env: docker
+    dockerfilePath: ./Dockerfile
     plan: starter
     autoDeploy: true
     healthCheckPath: /healthz
@@ -17,14 +18,50 @@ services:
       - key: SESSION_COOKIE_SAMESITE
         value: None
       - key: DB_HOST
-        sync: false
+        value: mariadb
       - key: DB_PORT
         value: "3306"
       - key: DB_USER
-        sync: false
+        value: adamsuser
       - key: DB_PASSWORD
         sync: false
       - key: DB_NAME
         value: adamsfaktura
       - key: DB_SSL_DISABLED
-        value: "false"
+        value: "true"
+
+  - type: pserv
+    name: mariadb
+    env: docker
+    dockerfilePath: ./Dockerfile.mariadb
+    plan: starter
+    autoDeploy: true
+    disk:
+      name: mariadb-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      - key: MYSQL_DATABASE
+        value: adamsfaktura
+      - key: MYSQL_USER
+        value: adamsuser
+      - key: MYSQL_PASSWORD
+        sync: false
+      - key: MYSQL_ROOT_PASSWORD
+        sync: false
+
+  - type: web
+    name: phpmyadmin
+    env: docker
+    dockerfilePath: ./Dockerfile.phpmyadmin
+    plan: starter
+    autoDeploy: true
+    envVars:
+      - key: PMA_HOST
+        value: mariadb
+      - key: PMA_PORT
+        value: "3306"
+      - key: PMA_USER
+        value: adamsuser
+      - key: PMA_PASSWORD
+        sync: false
